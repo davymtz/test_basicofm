@@ -19,14 +19,14 @@ Creating mysql   ... done
 Creating wp_web ... done
 ```
 2. Ejecutar el siguiente comando:
-`[sudo] docker exec -i mysql sh -c 'exec mysql -uroot -p"root"' < wordpress.sql`
+`[sudo] docker exec -i mysql sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < wordpress.sql`
 Posiblemente se pierda la conexión desde el bash y le salga elsiguiente error:
 ```
 mysql: [Warning] Using a password on the command line interface can be insecure.
 ERROR 2013 (HY000) at line 31: Lost connection to MySQL server during query
 read unix @->/var/run/docker.sock: read: connection reset by peer
 ```
-Esperen 10 segundos, para recuperar la conexión, y vuelven a ejecutar el comando anterior,
+Esperen aproximadamente 20 segundos, para que se vuelva a recuperar la conexión, y vuelven a ejecutar el comando anterior,
 si todo sale bien podremos continuar con el siguiente paso.
 3. Si todo sale bien y no produce ningún error, podemos ver el proyecto funcionando en la siguiente ruta: 
 [localhost:8080](http://localhost:8080)
