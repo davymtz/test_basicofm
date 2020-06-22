@@ -14,25 +14,34 @@ Los contenedores que se ejecutarán, obtendrán 1 servicio cada uno:
 `[sudo] docker-composer up -d`
 Y nos debería de salir algo como esto, en caso de exito:
 ```
-Creating network "stack_mean_default" with the default driver
+Creating network "<nombre_carpeta>_default" with the default driver
 Creating mysql   ... done
 Creating wp_web ... done
 ```
 2. Ejecutar el siguiente comando:
 `[sudo] docker exec -i mysql sh -c 'exec mysql -uroot -p"root"' < wordpress.sql`
-si todo sale bien podiblemente se vea en consola el siguiente mensaje:
+Posiblemente se pierda la conexión desde el bash y le salga elsiguiente error:
 ```
-Test
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2013 (HY000) at line 31: Lost connection to MySQL server during query
+read unix @->/var/run/docker.sock: read: connection reset by peer
 ```
+Esperen 10 segundos, para recuperar la conexión, y vuelven a ejecutar el comando anterior,
+si todo sale bien podremos continuar con el siguiente paso.
 3. Si todo sale bien y no produce ningún error, podemos ver el proyecto funcionando en la siguiente ruta: 
-[localhost:1234](http://localhost:1234)
+[localhost:8080](http://localhost:8080)
 
 
 ### Notas:
-Lo que esta encerrado entre corchetes "[]", es optativo
+Lo que esta encerrado entre corchetes "[ ]", es optativo
 Para poder ver los contenedores ejecutandose, puede hacerlo con el siguiente comando en la terminal:
 `[sudo] docker ps`
 Aqui les mostrará los contenedores o servicios ejecutandose para poder mostrar lo correspondiente
 
 Una vez terminado de ejecutar las pruebas necesarias, puede detener los procesos y eliminar los contenedores con __*docker-compose*__:
 `[sudo] docker-compose down`
+seguido de: 
+`[sudo] docker volume prune -f`
+y por ultimo:
+`[sudo] docker rmi $([sudo] docker images -aq)`
+
